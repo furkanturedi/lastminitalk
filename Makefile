@@ -1,45 +1,30 @@
-NAME = minitalk
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -D_POSIX_C_SOURCE=200809L
-CLIENT = client
-SERVER = server
-CLIENT_BONUS = client_bonus
-SERVER_BONUS = server_bonus
 
-CLIENT_SRCS = client.c
-SERVER_SRCS = server.c
-CLIENT_BONUS_SRCS = client_bonus.c
-SERVER_BONUS_SRCS = server_bonus.c
+all: client server
 
-CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
-SERVER_OBJS = $(SERVER_SRCS:.c=.o)
-CLIENT_BONUS_OBJS = $(CLIENT_BONUS_SRCS:.c=.o)
-SERVER_BONUS_OBJS = $(SERVER_BONUS_SRCS:.c=.o)
+client: client.o minitalk.h
+	$(CC) $(CFLAGS) -o $@ $<
 
-all: $(CLIENT) $(SERVER)
+server: server.o minitalk.h
+	$(CC) $(CFLAGS) -o $@ $<
 
-$(CLIENT): $(CLIENT_OBJS) minitalk.h
-	$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_OBJS)
+client_bonus: client_bonus.o minitalk_bonus.h
+	$(CC) $(CFLAGS) -o $@ $<
 
-$(SERVER): $(SERVER_OBJS) minitalk.h
-	$(CC) $(CFLAGS) -o $(SERVER) $(SERVER_OBJS)
+server_bonus: server_bonus.o minitalk_bonus.h
+	$(CC) $(CFLAGS) -o $@ $<
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: $(CLIENT_BONUS) $(SERVER_BONUS)
-
-$(CLIENT_BONUS): $(CLIENT_BONUS_OBJS) minitalk_bonus.h
-	$(CC) $(CFLAGS) -o $(CLIENT_BONUS) $(CLIENT_BONUS_OBJS)
-
-$(SERVER_BONUS): $(SERVER_BONUS_OBJS) minitalk_bonus.h
-	$(CC) $(CFLAGS) -o $(SERVER_BONUS) $(SERVER_BONUS_OBJS)
+bonus: client_bonus server_bonus
 
 clean:
-	rm -f $(CLIENT_OBJS) $(SERVER_OBJS) $(CLIENT_BONUS_OBJS) $(SERVER_BONUS_OBJS)
+	rm -f *.o
 
 fclean: clean
-	rm -f $(CLIENT) $(SERVER) $(CLIENT_BONUS) $(SERVER_BONUS)
+	rm -f client server client_bonus server_bonus
 
 re: fclean all
 
