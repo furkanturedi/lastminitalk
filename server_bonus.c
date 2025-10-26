@@ -45,32 +45,26 @@ static void	setup_signal_handlers(void)
 	sigaction(SIGUSR2, &sa, NULL);
 }
 
-static void	print_pid(void)
+static void	ft_putpid(pid_t n)
 {
-	char	buffer[16];
-	int		i;
-	pid_t	pid;
+	char	c;
 
-	i = 0;
-	pid = getpid();
-	if (pid == 0)
+	if (n > 9)
 	{
-		write(1, "0", 1);
-		return ;
+		ft_putpid((n / 10));
+		ft_putpid((n % 10));
 	}
-	while (pid > 0)
+	else
 	{
-		buffer[i++] = (pid % 10) + '0';
-		pid /= 10;
+		c = 48 + n;
+		write(1, &c, 1);
 	}
-	while (i > 0)
-		write(1, &buffer[--i], 1);
 }
 
 int	main(void)
 {
 	write(1, "Server PID: ", 12);
-	print_pid();
+	ft_putpid(getpid());
 	write(1, "\n", 1);
 	setup_signal_handlers();
 	while (1)
