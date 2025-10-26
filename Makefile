@@ -1,6 +1,6 @@
 NAME = minitalk
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -D_POSIX_C_SOURCE=200809L
 CLIENT = client
 SERVER = server
 CLIENT_BONUS = client_bonus
