@@ -1,4 +1,4 @@
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 static int	g_received_byte = 0;
 static int	g_bit_count = 0;

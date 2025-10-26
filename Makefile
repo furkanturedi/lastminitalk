@@ -29,10 +29,10 @@ $(SERVER): $(SERVER_OBJS) minitalk.h
 
 bonus: $(CLIENT_BONUS) $(SERVER_BONUS)
 
-$(CLIENT_BONUS): $(CLIENT_BONUS_OBJS) minitalk.h
+$(CLIENT_BONUS): $(CLIENT_BONUS_OBJS) minitalk_bonus.h
 	$(CC) $(CFLAGS) -o $(CLIENT_BONUS) $(CLIENT_BONUS_OBJS)
 
-$(SERVER_BONUS): $(SERVER_BONUS_OBJS) minitalk.h
+$(SERVER_BONUS): $(SERVER_BONUS_OBJS) minitalk_bonus.h
 	$(CC) $(CFLAGS) -o $(SERVER_BONUS) $(SERVER_BONUS_OBJS)
 
 clean:
