@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: you <you@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/28 00:00:00 by you               #+#    #+#             */
+/*   Updated: 2025/10/28 00:00:00 by you              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 static struct s_server_state
 {
-    int		received_byte;
-    int		bit_count;
-    pid_t	client_pid;
+	int		received_byte;
+	int		bit_count;
+	pid_t	client_pid;
 } g_server;
 
 static void	reset_bit_count(void)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk_bonus.h                                   :+:      :+:    :+:   */
+/*   client.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: you <you@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_BONUS_H
-# define MINITALK_BONUS_H
-
-# ifndef _POSIX_C_SOURCE
-#  define _POSIX_C_SOURCE 200809L
-# endif
+#ifndef CLIENT_H
+# define CLIENT_H
 
 # include <sys/types.h>
-# include <unistd.h>
-# include <signal.h>
+
+void	send_bit(pid_t server_pid, int bit, int *ack_flag);
+void	send_char(pid_t server_pid, char c, int *ack_flag);
+void	send_string(pid_t server_pid, char *str, int *ack_flag);
+int		ft_atoi(const char *str);
 
 #endif
+
 
