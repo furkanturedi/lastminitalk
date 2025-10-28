@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
-#include "client_bonus.h"
 
 void	send_bit(pid_t server_pid, int bit, int *ack_flag)
 {
