@@ -1,37 +1,40 @@
 #include "minitalk_bonus.h"
 
-static int	g_received_byte = 0;
-static int	g_bit_count = 0;
-static pid_t	g_client_pid = 0;
+static struct s_server_state
+{
+    int		received_byte;
+    int		bit_count;
+    pid_t	client_pid;
+} g_server;
 
 static void	reset_bit_count(void)
 {
-	g_bit_count = 0;
-	g_received_byte = 0;
+	g_server.bit_count = 0;
+	g_server.received_byte = 0;
 }
 
 static void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
-	g_client_pid = info->si_pid;
-	g_received_byte <<= 1;
+	g_server.client_pid = info->si_pid;
+	g_server.received_byte <<= 1;
 	if (sig == SIGUSR2)
-		g_received_byte |= 1;
-	g_bit_count++;
-	if (g_bit_count == 8)
+		g_server.received_byte |= 1;
+	g_server.bit_count++;
+	if (g_server.bit_count == 8)
 	{
-		if (g_received_byte == 0)
+		if (g_server.received_byte == 0)
 		{
 			write(1, "\n", 1);
 			reset_bit_count();
 		}
 		else
 		{
-			write(1, &g_received_byte, 1);
+			write(1, &g_server.received_byte, 1);
 			reset_bit_count();
 		}
 	}
-	kill(g_client_pid, SIGUSR1);
+	kill(g_server.client_pid, SIGUSR1);
 }
 
 static void	setup_signal_handlers(void)
